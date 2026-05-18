@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="landscape">
+
+    <title>El hackeo</title>
+    <link rel="icon" href="assets/logorobcodesolutions.ico" type="image/png">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <style>
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes floatingParticles {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            /* Prevenir selección de texto en móviles */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Prevenir zoom en iOS */
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            /* Prevenir arrastrar elementos */
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('roblogo.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Partículas flotantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            animation: floatingParticles 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .floating-particle:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-particle:nth-child(2) {
+            top: 20%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .floating-particle:nth-child(3) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-particle:nth-child(4) {
+            top: 80%;
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .floating-particle:nth-child(5) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 4s;
+        }
+
+        #turn {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background: linear-gradient(135deg, rgba(0, 21, 50, 0.95), rgba(26, 26, 46, 0.95));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #00ffff;
+            z-index: 1000;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        #turn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('roblogo.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Estilos para el canvas del juego */
+        canvas {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Prevenir selección en todos los elementos */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Estilos personalizados para SweetAlert2 */
+        .custom-container-class {
+            z-index: 999 !important;
+        }
+
+        .custom-popup-class {
+            position: relative !important;
+            max-width: 90% !important;
+            font-size: 16px !important;
+            padding: 20px !important;
+            word-wrap: break-word !important;
+            background: rgba(10, 10, 26, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(0, 255, 136, 0.3) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important;
+            margin: 1.25rem auto !important;
+        }
+
+        .custom-title-class {
+            font-size: 20px !important;
+            margin-bottom: 10px !important;
+            word-wrap: break-word !important;
+            color: #00ffff !important;
+            font-family: 'Orbitron', monospace !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        }
+
+        .custom-content-class {
+            margin: 10px 0 !important;
+            word-wrap: break-word !important;
+            color: #ffffff !important;
+            line-height: 1.5 !important;
+            font-family: 'Rajdhani', sans-serif !important;
+        }
+
+        .custom-confirm-button-class {
+            background: linear-gradient(145deg, #00ffff, #0099cc) !important;
+            color: #000 !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 25px !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            margin-top: 15px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3) !important;
+            font-family: 'Orbitron', monospace !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+        }
+
+        .custom-confirm-button-class:hover {
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5) !important;
+            background: linear-gradient(145deg, #33ffff, #00ccff) !important;
+        }
+
+        .custom-confirm-button-class:active {
+            transform: translateY(1px) scale(0.98) !important;
+        }
+
+        /* Estilos adicionales para SweetAlert2 */
+        .swal2-container {
+            z-index: 999 !important;
+        }
+
+        .swal2-popup {
+            position: relative !important;
+            border-radius: 15px !important;
+            background: rgba(10, 10, 26, 0.98) !important;
+            backdrop-filter: blur(10px) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important;
+            border: 1px solid rgba(0, 255, 136, 0.2) !important;
+        }
+
+        .swal2-title {
+            color: #00ffff !important;
+            font-weight: 600 !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        }
+
+        .swal2-html-container {
+            color: #ffffff !important;
+            line-height: 1.6 !important;
+        }
+
+        .swal2-icon {
+            border: none !important;
+            margin: 1.5em auto !important;
+        }
+
+        .swal2-timer-progress-bar {
+            background: rgba(76, 175, 80, 0.5) !important;
+        }
+
+        /* Estilos para las alertas tipo toast */
+        .swal2-toast {
+            background: rgba(10, 10, 26, 0.98) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+            border: 1px solid rgba(0, 255, 136, 0.2) !important;
+        }
+
+        .swal2-toast .swal2-title {
+            color: #00ff88 !important;
+        }
+
+        .swal2-toast .swal2-html-container {
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 480px) {
+            .custom-popup-class {
+                font-size: 14px !important;
+                padding: 15px !important;
+                max-width: 85% !important;
+            }
+
+            .custom-title-class {
+                font-size: 18px !important;
+            }
+
+            .custom-confirm-button-class {
+                padding: 6px 16px !important;
+                font-size: 14px !important;
+            }
+
+            .swal2-popup {
+                padding: 15px !important;
+                width: auto !important;
+                margin: 10px !important;
+            }
+
+            .swal2-icon {
+                transform: scale(0.8) !important;
+                margin: 1em auto !important;
+            }
+        }
+    </style>
+
+
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script src="scenas/MusicManager.js"></script>
+    <script src="scenas/scenaPrincipal.js"></script>
+    <script src="scenas/video1.js"></script>
+    <script src="scenas/Nivel1.js"></script>
+    <script src="scenas/video2.js"></script>
+    <script src="scenas/Nivel2.js"></script>
+    <script src="scenas/Nivel3.js"></script>
+    <!-- <script src="scenas/VerdaniaQuiz.js"></script>
+    <script src="scenas/VerdaniaTrueFalse.js"></script>
+    <script src="scenas/VerdaniaPseudocode.js"></script> -->
+    <script src="scenas/video4.js"></script>
+    <script src="scenas/Ultima.js"></script>
+    <script src="game.js"></script>
+
+    <div id="turn">
+        <p>Por favor, gira tu dispositivo a modo horizontal para jugar.</p>
+    </div>
+
+    <script>
+        function checkOrientation() {
+            let isPortrait = window.matchMedia("(orientation: portrait)").matches;
+            let isMobile = window.innerWidth < 768;
+
+            if (isMobile && isPortrait) {
+                document.getElementById('turn').style.display = 'flex';
+            } else {
+                document.getElementById('turn').style.display = 'none';
+            }
+        }
+
+        window.addEventListener("resize", checkOrientation);
+        window.addEventListener("orientationchange", checkOrientation);
+        window.addEventListener("DOMContentLoaded", checkOrientation);
+    </script>
+
+</body>
+
+</html>
